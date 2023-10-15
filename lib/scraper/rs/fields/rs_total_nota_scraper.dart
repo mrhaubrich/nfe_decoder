@@ -6,24 +6,24 @@ class RSTotalNotaScraper {
   final Element _element;
 
   // Defining the selectors as constants for better readability and maintainability
-  static const String TOTAL_ITENS_SELECTOR =
+  static const String _totalItemsSelector =
       '#linhaTotal:nth-child(1) > .totalNumb';
-  static const String LINHA_TOTAL_SELECTOR = '#linhaTotal';
-  static const String VALOR_PAGO_SELECTOR =
+  static const String _linhaTotalSelector = '#linhaTotal';
+  static const String _valorPagoSelector =
       '#linhaTotal.linhaShade .totalNumb.txtMax';
-  static const String TRIBUTOS_SELECTOR =
+  static const String _tributosSelector =
       '#linhaTotal.spcTop > .totalNumb.txtObs';
-  static const String FORMA_PAGAMENTO_SELECTOR = '#linhaTotal .tx';
+  static const String _formaPagamentoSelector = '#linhaTotal .tx';
 
   RSTotalNotaScraper(this._element);
 
   int _getTotalItens() {
-    return _parseIntFromElement(_element.querySelector(TOTAL_ITENS_SELECTOR),
+    return _parseIntFromElement(_element.querySelector(_totalItemsSelector),
         fallback: 0);
   }
 
   double? _getValorTotal() {
-    final elements = _element.querySelectorAll(LINHA_TOTAL_SELECTOR);
+    final elements = _element.querySelectorAll(_linhaTotalSelector);
     if (elements.length > 1 && elements[1].text.contains('Valor total R\$')) {
       return _parseDoubleFromElement(elements[1].querySelector('.totalNumb'));
     }
@@ -31,7 +31,7 @@ class RSTotalNotaScraper {
   }
 
   double _getValorDesconto() {
-    final elements = _element.querySelectorAll(LINHA_TOTAL_SELECTOR);
+    final elements = _element.querySelectorAll(_linhaTotalSelector);
     for (var element in elements) {
       if (element.text.contains("Descontos R\$")) {
         return _parseDoubleFromElement(element.querySelector('.totalNumb'),
@@ -42,12 +42,12 @@ class RSTotalNotaScraper {
   }
 
   double _getValorPago() {
-    return _parseDoubleFromElement(_element.querySelector(VALOR_PAGO_SELECTOR),
+    return _parseDoubleFromElement(_element.querySelector(_valorPagoSelector),
         fallback: 0.0);
   }
 
   List<NfeFormaPagamento> _getFormasPagamento() {
-    return _element.querySelectorAll(FORMA_PAGAMENTO_SELECTOR).map((txElement) {
+    return _element.querySelectorAll(_formaPagamentoSelector).map((txElement) {
       final parentElement = txElement.parent;
       return NfeFormaPagamento(
         formaPagamento: FormaPagamento(
@@ -61,7 +61,7 @@ class RSTotalNotaScraper {
   }
 
   double _getTributos() {
-    return _parseDoubleFromElement(_element.querySelector(TRIBUTOS_SELECTOR),
+    return _parseDoubleFromElement(_element.querySelector(_tributosSelector),
         fallback: 0.0);
   }
 
@@ -79,12 +79,6 @@ class RSTotalNotaScraper {
   int _parseIntFromElement(Element? element, {int fallback = 0}) {
     final text = element?.text.trim();
     return int.tryParse(text ?? '') ?? fallback;
-  }
-
-  double _parseDoubleFromText(String? text, {double fallback = 0.0}) {
-    if (text == null) return fallback;
-    final processedText = text.trim().replaceAll(',', '.');
-    return double.tryParse(processedText) ?? fallback;
   }
 
   double _parseDoubleFromElement(Element? element, {double fallback = 0.0}) {

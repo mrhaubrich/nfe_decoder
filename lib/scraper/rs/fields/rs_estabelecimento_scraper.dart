@@ -3,12 +3,6 @@ import 'package:nfe_decoder/models/endereco.dart';
 import 'package:nfe_decoder/models/estabelecimento.dart';
 
 class RSEstabelecimentoScraper {
-  static final _selectors = {
-    'nome': '#u20',
-    'cnpj': 'div:nth-child(1)',
-    'endereco': 'div:nth-child(2)',
-  };
-
   final Element _element;
 
   RSEstabelecimentoScraper(this._element);
