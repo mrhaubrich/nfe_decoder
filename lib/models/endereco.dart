@@ -39,4 +39,24 @@ class Endereco {
         cidade.hashCode ^
         estado.hashCode;
   }
+
+  Endereco.fromMap(Map<String, dynamic> map) {
+    logradouro = map['logradouro'];
+    numero = map['numero'];
+    complemento = map['complemento'];
+    bairro = map['bairro'];
+    cidade = map['cidade'];
+    estado = map['estado'];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'logradouro': logradouro,
+      'numero': numero,
+      'complemento': complemento,
+      'bairro': bairro,
+      'cidade': cidade,
+      'estado': estado,
+    };
+  }
 }

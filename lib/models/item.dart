@@ -11,4 +11,17 @@ class Item {
     required this.descricao,
     required this.unidade,
   });
+
+  Item.fromMap(Map<String, dynamic> map)
+      : codigo = map['codigo'],
+        descricao = map['descricao'],
+        unidade = map['unidade'];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'codigo': codigo,
+      'descricao': descricao,
+      'unidade': unidade,
+    };
+  }
 }

@@ -14,4 +14,17 @@ class Estabelecimento {
     required this.cnpj,
     required this.endereco,
   });
+
+  Estabelecimento.fromMap(Map<String, dynamic> map)
+      : nome = map['nome'],
+        cnpj = map['cnpj'],
+        endereco = Endereco.fromMap(map['endereco']);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'nome': nome,
+      'cnpj': cnpj,
+      'endereco': endereco.toMap(),
+    };
+  }
 }
