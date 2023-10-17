@@ -1,6 +1,6 @@
 name: nfe_decoder
 description: A library that decodes NFe from the URL of the QRCode.
-version: 0.1.1
+version: 0.1.2
 repository: https://github.com/mrhaubrich/nfe_decoder
 
 environment:

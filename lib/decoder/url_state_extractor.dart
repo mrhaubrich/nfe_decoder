@@ -3,10 +3,14 @@ class URLStateExtractor {
 
   URLStateExtractor(this.url);
 
+  bool get hasNFE => url.contains('NFE');
+  bool get hasNFCE => url.contains('NFCE');
+  bool get hasNFC => url.contains('NFC');
+
   String extractState() {
     Uri uri = Uri.parse(url);
 
-    if (uri.host.contains('rs.gov.br')) {
+    if (uri.host.contains('rs.gov.br') && (hasNFE || hasNFCE || hasNFC)) {
       return 'RS';
     }
 

@@ -46,6 +46,10 @@ class Decoder {
 
     return scraper!.getNfe()..url = url;
   }
+
+  static bool isNfeUrl(String url) {
+    return URLStateExtractor(url).extractState() != 'UNKNOWN';
+  }
 }
 
 // Sample URLs for reference:
