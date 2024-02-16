@@ -1,3 +1,7 @@
+## 0.1.3 (2023-10-17)
+
+- Fix: Changed dependencies constraints to allow newer versions.
+ 
 ## 0.1.2 (2023-10-17)
 
 - Feature: Add `isNfeUrl` method to `Decoder`.
