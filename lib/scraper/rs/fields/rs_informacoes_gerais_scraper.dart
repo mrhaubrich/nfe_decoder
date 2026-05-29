@@ -1,5 +1,4 @@
 import 'package:html/dom.dart';
-import 'package:intl/intl.dart';
 
 class RSInformacoesGeraisScraper {
   final Element _element;
@@ -25,25 +24,39 @@ class RSInformacoesGeraisScraper {
   }
 
   String _extractDateFromText(String surroundingText) {
-    final datePattern =
-        RegExp(r'Emissão: (\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})');
+    final datePattern = RegExp(
+      r'Emissão: (\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2})',
+    );
     final dateMatch = datePattern.firstMatch(surroundingText);
 
     if (dateMatch == null) {
       throw FormatException('Failed to find Emissão date pattern');
     }
 
-    return dateMatch
-        .group(1)!; // The RegExp ensures there's a match, so `!` is safe here.
+    return dateMatch.group(
+      1,
+    )!; // The RegExp ensures there's a match, so `!` is safe here.
   }
 
   DateTime _parseEmissaoDate(String emissaoDateString) {
-    final dateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
-    try {
-      return dateFormat.parse(emissaoDateString);
-    } catch (e) {
+    final day = int.parse(emissaoDateString.substring(0, 2));
+    final month = int.parse(emissaoDateString.substring(3, 5));
+    final year = int.parse(emissaoDateString.substring(6, 10));
+    final hour = int.parse(emissaoDateString.substring(11, 13));
+    final minute = int.parse(emissaoDateString.substring(14, 16));
+    final second = int.parse(emissaoDateString.substring(17, 19));
+    final date = DateTime(year, month, day, hour, minute, second);
+
+    if (date.year != year ||
+        date.month != month ||
+        date.day != day ||
+        date.hour != hour ||
+        date.minute != minute ||
+        date.second != second) {
       throw FormatException('Failed to parse Emissão date');
     }
+
+    return date;
   }
 
   DateTime _getDataEmissao() {
@@ -59,16 +72,12 @@ class RSInformacoesGeraisScraper {
   RSInformacoesGeraisData scrapeInformacoesGerais() {
     final dataEmissao = _getDataEmissao();
 
-    return RSInformacoesGeraisData(
-      dataEmissao: dataEmissao,
-    );
+    return RSInformacoesGeraisData(dataEmissao: dataEmissao);
   }
 }
 
 class RSInformacoesGeraisData {
   final DateTime dataEmissao;
 
-  RSInformacoesGeraisData({
-    required this.dataEmissao,
-  });
+  RSInformacoesGeraisData({required this.dataEmissao});
 }
