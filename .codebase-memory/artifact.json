@@ -1,0 +1,11 @@
+{
+    "schema_version": 2,
+    "commit": "712524a25b2405eeb5d56f7b70013b904ea87e6b",
+    "indexed_at": "2026-09-28T21:40:09Z",
+    "project": "nfe_decoder",
+    "nodes": 285,
+    "edges": 549,
+    "original_size": 1966080,
+    "compressed_size": 127092,
+    "compression_level": 9
+}

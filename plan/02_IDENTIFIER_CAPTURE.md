@@ -1,6 +1,6 @@
 # Identifier capture and compatibility
 
-Status: 🔄 Active workstream; approved 2026-09-18; implementation not started.
+Status: 🔄 Active workstream; approved 2026-09-18; NID.2 is complete.
 Contract: [identifier contract](../docs/identifier_contract.md).
 Coordination: GPreços Phase 12 I12.1 depends on NID.5; NID.6 is not required.
 
@@ -32,7 +32,7 @@ confuse package dry run with publication or mocked HTTP with live coverage.
 
 ## NID.1 — Source evidence and fixture contract
 
-Status: 🧪 | MoSCoW: MUST | RICE: 19.00
+Status: ✅ | MoSCoW: MUST | RICE: 19.00
 Reach: 5 | Impact: 2 | Confidence: 0.95 | Effort: 0.5 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -46,9 +46,9 @@ Files or areas: Existing RS scraper/fixtures/tests; docs/identifier_contract.md.
 Schema changes: No independent schema/version change; consume the approved schema/transport contract. Any deviation returns to architect/planner.
 
 Acceptance criteria:
-- [ ] RCod is retailer-code evidence; no HTML GTIN claim without evidence; no real fiscal identifiers in new fixtures.
-- [ ] Negative cases covered: Missing RCod, valid-looking numeric code, repeated rows and unsupported/malformed layouts.
-- [ ] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
+- [x] RCod is retailer-code evidence; no HTML GTIN claim without evidence; no real fiscal identifiers in new fixtures.
+- [x] Negative cases covered: Missing RCod, valid-looking numeric code, repeated rows and unsupported/malformed layouts.
+- [x] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
 
 Validation: Existing RS focused tests and privacy inspection; source citations.
 
@@ -66,11 +66,13 @@ layouts. Focused RS tests, the full test suite, analyzer, package dry run and di
 check ran on 2026-09-28. The full formatter gate remains validation-required because
 the current SDK reports 13 pre-existing files as reformatted; package dry run reports
 the dirty worktree and the existing plural `docs` layout warning. No live fiscal
-identifiers or URLs were added.
+identifiers or URLs were added. The previously reported formatter limitation was
+rechecked on the committed style baseline with Dart 3.12.1; the full formatter gate
+now passes.
 
 ## NID.2 — Identifier value and validation contract
 
-Status: 🔲 | MoSCoW: MUST | RICE: 18.00
+Status: ✅ | MoSCoW: MUST | RICE: 18.00
 Reach: 5 | Impact: 3 | Confidence: 0.9 | Effort: 0.75 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -84,9 +86,9 @@ Files or areas: Proposed lib/models/identifier_observation.dart; lib/identifiers
 Schema changes: No independent schema/version change; consume the approved schema/transport contract. Any deviation returns to architect/planner.
 
 Acceptance criteria:
-- [ ] Preserve raw value/length, separate roles/statuses, valid padding and explicit unknown states; old Item contract unchanged.
-- [ ] Negative cases covered: Unicode digits, wrong length/checksum, all-zero, UPC-E ambiguity, checksum-valid retailer code.
-- [ ] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
+- [x] Preserve raw value/length, separate roles/statuses, valid padding and explicit unknown states; old Item contract unchanged.
+- [x] Negative cases covered: Unicode digits, wrong length/checksum, all-zero, UPC-E ambiguity, checksum-valid retailer code.
+- [x] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
 
 Validation: Pure validator/map golden tests; analyzer.
 
@@ -97,7 +99,16 @@ outside this task. NID tasks never own app resolution/storage; app tasks never s
 change the decoder wire contract.
 
 Required completion evidence: Full identifier matrix and backwards-compatible constructor/map tests.
-Completion evidence: Not executed; implementation not started.
+Completion evidence: Added immutable `IdentifierObservation` map parsing with raw
+value preservation, unknown-state and extension retention, malformed-map rejection,
+and additive public exports. Added pure `assessGtin` validation for 8/12/13/14-digit
+ASCII inputs, exact check digits, zero padding, retailer-code classification,
+Unicode/punctuation/length/checksum/all-zero rejection, and explicit UPC-E ambiguity.
+Focused tests and the full 73-test suite pass; format, analyzer, and diff checks pass
+on Dart 3.12.1. Analyzer reports one pre-existing `use_super_parameters` info and
+the existing analyzer-plugin dependency-resolution trace; no new analyzer errors.
+Package dry-run executes with the existing dirty-worktree and plural `docs` layout
+warnings; publication remains a separate action.
 
 ## NID.3 — RS observation extraction
 
