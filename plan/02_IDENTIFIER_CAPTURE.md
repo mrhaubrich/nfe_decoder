@@ -32,7 +32,7 @@ confuse package dry run with publication or mocked HTTP with live coverage.
 
 ## NID.1 — Source evidence and fixture contract
 
-Status: 🟢 | MoSCoW: MUST | RICE: 19.00
+Status: 🧪 | MoSCoW: MUST | RICE: 19.00
 Reach: 5 | Impact: 2 | Confidence: 0.95 | Effort: 0.5 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -59,7 +59,14 @@ outside this task. NID tasks never own app resolution/storage; app tasks never s
 change the decoder wire contract.
 
 Required completion evidence: Aggregate fixture inventory, verified selector mapping and privacy-safe fixture specification.
-Completion evidence: Not executed; implementation not started.
+Completion evidence: Added the verified current RS selector/capability map to the
+identifier contract and a privacy-safe synthetic matrix covering missing/empty RCod,
+numeric-looking retailer codes, repeated rows/order, and unsupported or malformed
+layouts. Focused RS tests, the full test suite, analyzer, package dry run and diff
+check ran on 2026-09-28. The full formatter gate remains validation-required because
+the current SDK reports 13 pre-existing files as reformatted; package dry run reports
+the dirty worktree and the existing plural `docs` layout warning. No live fiscal
+identifiers or URLs were added.
 
 ## NID.2 — Identifier value and validation contract
 

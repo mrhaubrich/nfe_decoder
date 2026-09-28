@@ -27,6 +27,30 @@ maps displayed Código to cProd; exact RS backend field equivalence remains infe
 without paired evidence. NID.1 verifies and records selectors/capabilities using safe
 synthetic examples; no live fiscal URLs or identifiers in new fixtures.
 
+### NID.1 verified RS evidence map
+
+The current adapter was checked against the repository fixtures and a synthetic
+negative-case matrix. The selectors below are implementation evidence for the
+current RS HTML layout, not a claim that every RS page uses the same layout.
+
+| Selector | Legacy output | Evidence interpretation | Capability |
+|---|---|---|---|
+| `.txtTit` | `Item.descricao` | Item description text | Supported when present |
+| `.RCod` | `Item.codigo` after label/parenthesis cleanup | Displayed `Código`; retailer-code evidence only | Supported as `html.RCod`; not GTIN |
+| `.RUN` | `Item.unidade` after `UN:` cleanup | Unit text | Supported when present |
+| `.Rqtd` | `NfeItem.quantidade` | Quantity text after `Qtde.:` | Supported when present |
+| `.RvlUnit` | `NfeItem.valorUnitario` | Unit-price text after `Vl. Unit.:` | Supported when present |
+| `.valor` | `NfeItem.valorTotal` | Total-price text | Supported when present |
+
+The repository inventory is two existing fixture views: 9 rows in
+`test/mock_data/gecepel_items.html` and 53 rows in
+`test/mock_data/andreazza_items.html`. The focused NID.1 matrix additionally
+asserts that a missing or empty `.RCod` stays an empty legacy code, a numeric-looking
+code remains only retailer-code evidence, repeated rows remain repeated and ordered,
+and an unsupported or malformed layout does not manufacture an identifier.
+No new fixture contains a QR URL, access key, CNPJ/CPF, consumer data or copied
+fiscal HTML.
+
 Public consultation is not proof of anonymous XML download. The published SVRS notice
 requires a related party certificate for XML download; acquisition stays a separate gate.
 No provider integration, CAPTCHA bypass, credential acquisition or app identity logic.
