@@ -6,8 +6,9 @@ import 'package:test/test.dart';
 
 void main() {
   group('RSEstabelecimentoScraper -> test Irmaos Andreazza Ltda', () {
-    final html = File('test/mock_data/andreazza_estabelecimento.html')
-        .readAsStringSync();
+    final html = File(
+      'test/mock_data/andreazza_estabelecimento.html',
+    ).readAsStringSync();
     final element = Element.html(html);
     final estabelecimentoScraper = RSEstabelecimentoScraper(element);
     final estabelecimento = estabelecimentoScraper.getEstabelecimento();
@@ -46,8 +47,9 @@ void main() {
   });
 
   group('RSEstabelecimentoScraper -> test Supermercado Gecepel Ltda', () {
-    final html =
-        File('test/mock_data/gecepel_estabelecimento.html').readAsStringSync();
+    final html = File(
+      'test/mock_data/gecepel_estabelecimento.html',
+    ).readAsStringSync();
     final element = Element.html(html);
     final estabelecimentoScraper = RSEstabelecimentoScraper(element);
     final estabelecimento = estabelecimentoScraper.getEstabelecimento();

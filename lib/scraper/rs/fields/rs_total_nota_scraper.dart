@@ -18,8 +18,10 @@ class RSTotalNotaScraper {
   RSTotalNotaScraper(this._element);
 
   int _getTotalItens() {
-    return _parseIntFromElement(_element.querySelector(_totalItemsSelector),
-        fallback: 0);
+    return _parseIntFromElement(
+      _element.querySelector(_totalItemsSelector),
+      fallback: 0,
+    );
   }
 
   double? _getValorTotal() {
@@ -34,16 +36,20 @@ class RSTotalNotaScraper {
     final elements = _element.querySelectorAll(_linhaTotalSelector);
     for (var element in elements) {
       if (element.text.contains("Descontos R\$")) {
-        return _parseDoubleFromElement(element.querySelector('.totalNumb'),
-            fallback: 0.0);
+        return _parseDoubleFromElement(
+          element.querySelector('.totalNumb'),
+          fallback: 0.0,
+        );
       }
     }
     return 0.0; // Default value if no matching element is found
   }
 
   double _getValorPago() {
-    return _parseDoubleFromElement(_element.querySelector(_valorPagoSelector),
-        fallback: 0.0);
+    return _parseDoubleFromElement(
+      _element.querySelector(_valorPagoSelector),
+      fallback: 0.0,
+    );
   }
 
   List<NfeFormaPagamento> _getFormasPagamento() {
@@ -51,18 +57,23 @@ class RSTotalNotaScraper {
       final parentElement = txElement.parent;
       return NfeFormaPagamento(
         formaPagamento: FormaPagamento(
-            descricao: parentElement?.querySelector('label.tx')?.text.trim() ??
-                'Não informado'),
+          descricao:
+              parentElement?.querySelector('label.tx')?.text.trim() ??
+              'Não informado',
+        ),
         valor: _parseDoubleFromElement(
-            parentElement?.querySelector('.totalNumb'),
-            fallback: 0.0),
+          parentElement?.querySelector('.totalNumb'),
+          fallback: 0.0,
+        ),
       );
     }).toList();
   }
 
   double _getTributos() {
-    return _parseDoubleFromElement(_element.querySelector(_tributosSelector),
-        fallback: 0.0);
+    return _parseDoubleFromElement(
+      _element.querySelector(_tributosSelector),
+      fallback: 0.0,
+    );
   }
 
   RSTotalNotaData scrapeTotalNota() {

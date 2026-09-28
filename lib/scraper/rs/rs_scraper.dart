@@ -28,8 +28,11 @@ class RSScraper extends BaseScraper {
   Element _getInformacoesGeraisElement() {
     final elements = document.querySelectorAll('h4');
 
-    final pattern = RegExp(r'Informações\s+gerais\s+da\s+Nota',
-        multiLine: true, caseSensitive: false);
+    final pattern = RegExp(
+      r'Informações\s+gerais\s+da\s+Nota',
+      multiLine: true,
+      caseSensitive: false,
+    );
 
     for (var element in elements) {
       if (pattern.hasMatch(element.text)) {
@@ -62,8 +65,9 @@ class RSScraper extends BaseScraper {
       return estabelecimentoElement!;
     }
 
-    final element =
-        document.querySelector(_selectors['estabelecimento']!)?.children[0];
+    final element = document
+        .querySelector(_selectors['estabelecimento']!)
+        ?.children[0];
     if (element == null) {
       throw Exception('Estabelecimento não encontrado');
     }

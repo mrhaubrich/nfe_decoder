@@ -4,11 +4,9 @@ class FormaPagamento {
   FormaPagamento({required this.descricao});
 
   FormaPagamento.fromMap(Map<String, dynamic> map)
-      : descricao = map['descricao'];
+    : descricao = map['descricao'];
 
   Map<String, dynamic> toMap() {
-    return {
-      'descricao': descricao,
-    };
+    return {'descricao': descricao};
   }
 }

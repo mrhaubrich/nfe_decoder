@@ -31,9 +31,7 @@ class Decoder {
   /// Creates a [Decoder] instance with the given [url].
   ///
   /// Internally, it initializes the [URLBuilder] and [HTTPClient] to work with the given URL.
-  Decoder(String url)
-      : urlBuilder = URLBuilder(url),
-        httpClient = HTTPClient();
+  Decoder(String url) : urlBuilder = URLBuilder(url), httpClient = HTTPClient();
 
   /// Initiates the NFE scraping process.
   ///

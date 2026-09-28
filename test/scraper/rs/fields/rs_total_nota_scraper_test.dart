@@ -29,8 +29,10 @@ void main() {
       expect(totalNota.valorDesconto, 1.52);
       expect(totalNota.valorPago, 453.54);
       expect(totalNota.formasPagamento.length, 2);
-      expect(totalNota.formasPagamento.first.formaPagamento.descricao,
-          'Cartão de Débito');
+      expect(
+        totalNota.formasPagamento.first.formaPagamento.descricao,
+        'Cartão de Débito',
+      );
       expect(totalNota.formasPagamento.first.valor, 453.54);
       expect(totalNota.formasPagamento.last.formaPagamento.descricao, 'Troco');
       expect(totalNota.formasPagamento.last.valor, 0.0);
@@ -58,8 +60,10 @@ void main() {
       expect(totalNota.valorDesconto, 0.0);
       expect(totalNota.valorPago, 45.75);
       expect(totalNota.formasPagamento.length, 1);
-      expect(totalNota.formasPagamento.first.formaPagamento.descricao,
-          'Cartão de Débito');
+      expect(
+        totalNota.formasPagamento.first.formaPagamento.descricao,
+        'Cartão de Débito',
+      );
       expect(totalNota.formasPagamento.first.valor, 45.75);
       expect(totalNota.tributos, 0.0);
     });

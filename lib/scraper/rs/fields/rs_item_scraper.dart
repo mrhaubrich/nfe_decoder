@@ -27,25 +27,22 @@ class RSItemScraper {
         .trim();
     String unidade = _extractText('unidade').split('UN:').last.trim();
     String quantidadeStr = _extractText('quantidade');
-    double quantidade = double.tryParse(
-            quantidadeStr.split('Qtde.:').last.trim().replaceAll(',', '.')) ??
+    double quantidade =
+        double.tryParse(
+          quantidadeStr.split('Qtde.:').last.trim().replaceAll(',', '.'),
+        ) ??
         0.0;
     String valorUnitarioStr = _extractText('valorUnitario');
-    double valorUnitario = double.tryParse(valorUnitarioStr
-            .split('Vl. Unit.:')
-            .last
-            .trim()
-            .replaceAll(',', '.')) ??
+    double valorUnitario =
+        double.tryParse(
+          valorUnitarioStr.split('Vl. Unit.:').last.trim().replaceAll(',', '.'),
+        ) ??
         0.0;
     double valorTotal =
         double.tryParse(_extractText('valorTotal').replaceAll(',', '.')) ?? 0.0;
 
     return NfeItem(
-      item: Item(
-        codigo: codigo,
-        descricao: descricao,
-        unidade: unidade,
-      ),
+      item: Item(codigo: codigo, descricao: descricao, unidade: unidade),
       quantidade: quantidade,
       valorUnitario: valorUnitario,
       valorTotal: valorTotal,

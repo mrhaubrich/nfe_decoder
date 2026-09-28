@@ -7,13 +7,10 @@ class NfeFormaPagamento {
   NfeFormaPagamento({required this.formaPagamento, required this.valor});
 
   NfeFormaPagamento.fromMap(Map<String, dynamic> map)
-      : formaPagamento = FormaPagamento.fromMap(map['formaPagamento']),
-        valor = map['valor'];
+    : formaPagamento = FormaPagamento.fromMap(map['formaPagamento']),
+      valor = map['valor'];
 
   Map<String, dynamic> toMap() {
-    return {
-      'formaPagamento': formaPagamento.toMap(),
-      'valor': valor,
-    };
+    return {'formaPagamento': formaPagamento.toMap(), 'valor': valor};
   }
 }
