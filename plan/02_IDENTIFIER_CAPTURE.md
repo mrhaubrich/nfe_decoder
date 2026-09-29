@@ -1,7 +1,7 @@
 # Identifier capture and compatibility
 
-Status: 🔄 Active workstream; approved 2026-09-18; NID.1–NID.4 are complete; NID.5 is next.
-Contract: [identifier contract](../docs/identifier_contract.md).
+Status: 🔄 Active workstream; approved 2026-09-18; NID.1–NID.4 are complete; NID.5 is in validation.
+Contract: [identifier contract](../doc/identifier_contract.md).
 Coordination: GPreços Phase 12 I12.1 depends on NID.5; NID.6 is not required.
 
 ## Adaptive stages
@@ -42,7 +42,7 @@ Owner: decoder implementer; architect/reviewer/validator handoff.
 
 Objective and public contract: Field-to-selector and source capability tables; synthetic fixture specification; confirmed versus inferred semantics.
 
-Files or areas: Existing RS scraper/fixtures/tests; docs/identifier_contract.md.
+Files or areas: Existing RS scraper/fixtures/tests; doc/identifier_contract.md.
 Schema changes: No independent schema/version change; consume the approved schema/transport contract. Any deviation returns to architect/planner.
 
 Acceptance criteria:
@@ -184,7 +184,7 @@ Completion evidence: Exact allowlist covers the two evidenced `www.sefaz.rs.gov.
 
 ## NID.5 — Compatibility and release gate
 
-Status: 🔲 | MoSCoW: MUST | RICE: 25.50
+Status: 🧪 | MoSCoW: MUST | RICE: 25.50
 Reach: 5 | Impact: 3 | Confidence: 0.85 | Effort: 0.5 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -198,9 +198,9 @@ Files or areas: pubspec.yaml; CHANGELOG.md; README.md; constructor/map/package t
 Schema changes: No independent schema/version change; consume the approved schema/transport contract. Any deviation returns to architect/planner.
 
 Acceptance criteria:
-- [ ] Old constructors/maps work; unknown extensions remain non-actionable; app consuming artifact version identified; no absolute path dependency.
-- [ ] Negative cases covered: Legacy caller, old maps, unsupported contract, malformed extensions, incompatible request behavior.
-- [ ] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
+- [x] Old constructors/maps work; unknown extensions remain non-actionable at the decoder boundary; current app consumer identified as hosted 0.2.0; no absolute path dependency.
+- [x] Negative cases covered: Legacy caller, old maps, unsupported contract, malformed extensions, incompatible request behavior.
+- [x] Actual diff reviewed; no actionable findings; release-gate failures retained below.
 
 Validation: D-ALL and package dry run below.
 
@@ -211,7 +211,7 @@ outside this task. NID tasks never own app resolution/storage; app tasks never s
 change the decoder wire contract.
 
 Required completion evidence: Exact commit/artifact and compatibility matrix; publishing remains a separate consequential action.
-Completion evidence: Not executed; implementation not started.
+Completion evidence: See the NID.5 evidence ledger in `plan/README.md`. Exact immutable 0.3.0 commit/artifact and clean package dry-run remain outstanding; no publication was performed.
 
 ## NID.6 — Additional XML capture adapter
 

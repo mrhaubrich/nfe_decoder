@@ -55,7 +55,7 @@ class RSItemScraper {
         'layout': 'rs-html-item',
         'captureMethod': 'html.RCod',
         'parser': 'RSItemScraper',
-        'parserVersion': 'nfe_decoder-0.2.0',
+        'parserVersion': 'nfe_decoder-0.3.0',
         'sourceOrdinalBasis': 'rs-html-tr-order',
       },
     );

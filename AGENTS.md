@@ -5,7 +5,7 @@
 Small Dart library for supported invoice URL decoding. Current implemented state is
 RS. `lib/decoder/` owns requests/orchestration; `lib/scraper/` owns layout extraction;
 `lib/models/` owns public transport values; `test/` owns deterministic fixtures/tests.
-Read `plan/README.md` before selecting work and `docs/identifier_contract.md` before
+Read `plan/README.md` before selecting work and `doc/identifier_contract.md` before
 identifier changes. Do not claim support absent from ScraperFactory.
 
 ## Boundaries and compatibility

@@ -5,7 +5,7 @@ NFE Decoder is a Dart library designed to scrape and extract information from No
 ## Features
 
 - Decode NFE URLs and retrieve detailed invoice data.
-- Supports multiple state-specific NFE formats.
+- Supports Rio Grande do Sul (RS) NFC-e URLs only.
 - Provides a clean API for integration into larger projects or use as a standalone library.
 
 ## Installation
@@ -14,7 +14,7 @@ To use the NFE Decoder in your project, add it to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  nfe_decoder: ^latest_version
+  nfe_decoder: ^0.3.0
 ```
 
 Then, run:
@@ -37,40 +37,16 @@ void main() async {
 }
 ```
 
-For more detailed examples and advanced configurations, please refer to the [documentation](#documentation-link).
+For the identifier observation and compatibility contract, see
+[the decoder contract](doc/identifier_contract.md).
 
 ## Available Decoders
-- [ ] [Acre](https://www.sefaznet.ac.gov.br/nfce/consulta)
-- [ ] [Alagoas](https://www.sefaz.al.gov.br/portal/consultaNFCe.jsp)
-- [ ] [Amapá](https://www.sefaz.ap.gov.br/nfce/portal/consultaNFCe.jsp)
-- [ ] [Amazonas](https://sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp)
-- [ ] [Bahia](http://nfe.sefaz.ba.gov.br/servicos/nfce/Modulos/Geral/NFCEC_consulta_chave_acesso.aspx)
-- [ ] [Ceará](https://nfce.sefaz.ce.gov.br/pages/ShowNFCe.html)
-- [ ] [Distrito Federal](https://dec.fazenda.df.gov.br/ConsultarNFCe.aspx)
-- [ ] [Espírito Santo](https://internet.sefaz.es.gov.br/informacoes/nfe.aspx)
-- [ ] [Goiás](https://www.sefaz.go.gov.br/ccn/)
-- [ ] [Maranhão](https://www.sefaz.ma.gov.br/portalsefaz/jsp/pagina/pagina.jsf?codigo=167)
-- [ ] [Mato Grosso do Sul](https://www.dfe.ms.gov.br/nfce)
-- [ ] [Mato Grosso](https://www.sefaz.mt.gov.br/nfce/portal/consultaNFCe.jsp)
-- [ ] [Minas Gerais](https://www.fazenda.mg.gov.br/empresas/obtenha_sua_nota_fiscal_eletronica.html)
-- [ ] [Paraná](https://www.fazenda.pr.gov.br/nfe/)
-- [ ] [Paraíba](https://www.receita.pb.gov.br/ser/info/nfc-e)
-- [ ] [Pará](https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/nfceForm.seam)
-- [ ] [Pernambuco](https://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe)
-- [ ] [Piauí](https://www.sefaz.pi.gov.br/nfce/consulta)
-- [ ] [Rio Grande do Norte](https://www.set.rn.gov.br/nfce)
-- [x] [Rio Grande do Sul](https://www.sefaz.rs.gov.br/NFE/NFE-CCC.aspx)
-- [ ] [Rio de Janeiro](https://www4.fazenda.rj.gov.br/consultaNFCe/QRCode)
-- [ ] [Rondônia](https://www.nfce.sefin.ro.gov.br/portal/consultaNFCe.jsp)
-- [ ] [Roraima](https://www.sefaz.rr.gov.br/nfce/servlet/qrcode?chNFe=)
-- [ ] [Santa Catarina](https://nfe.sef.sc.gov.br/nfe/consulta)
-- [ ] [Sergipe](https://www.sefaz.se.gov.br/nfce/consulta)
-- [ ] [São Paulo](https://www.nfe.fazenda.sp.gov.br/NF3/nf3.aspx)
-- [ ] [Tocantins](https://www.sefaz.to.gov.br/nfce/consulta)
+- [Rio Grande do Sul](https://www.sefaz.rs.gov.br/NFE/NFE-CCC.aspx)
 
 ## Documentation
 
-Detailed documentation can be found [here](#documentation-link).
+Only the RS scraper is implemented. Other state-specific formats are not
+supported by this package.
 
 ## Contributing
 

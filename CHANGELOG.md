@@ -1,3 +1,11 @@
+## 0.3.0 (unreleased)
+
+- Feature: Additive identifier observations and pure GTIN assessment while
+  preserving legacy model constructors and maps.
+- Security: Restrict NFe requests to verified RS endpoints and bounded,
+  validated redirects; unsupported requests fail safely.
+- Docs: State explicitly that Rio Grande do Sul is the only supported state.
+
 ## 0.2.0 (2026-05-29)
 
 - Breaking: Removed the direct `dio` dependency and replaced the HTTP client implementation with `package:http`.

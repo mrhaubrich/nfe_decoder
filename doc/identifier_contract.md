@@ -1,6 +1,6 @@
 # Identifier observation contract v1
 
-Approved 2026-09-18; proposed package release 0.3.0; not implemented.
+Approved 2026-09-18; proposed package release 0.3.0; implementation tracked in NID.5.
 Decoder owns source extraction and pure structural validation. GPreços owns identity
 resolution, fiscal snapshots, persistence, migrations and reversible user decisions.
 Coordination: `gprecos_flutter/docs/product_identity_contract.md` and Phase 12.

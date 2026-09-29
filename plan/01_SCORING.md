@@ -13,7 +13,7 @@ wins within the active workstream; hard compatibility/security gates always over
 | NID.2 | MUST | 5 | 3 | 0.9 | 0.75 | 18.00 | ✅ | NID.1 |
 | NID.3 | MUST | 5 | 3 | 0.9 | 0.5 | 27.00 | ✅ | NID.2 |
 | NID.4 | MUST | 5 | 3 | 0.85 | 0.75 | 17.00 | ✅ | NID.1 |
-| NID.5 | MUST | 5 | 3 | 0.85 | 0.5 | 25.50 | 🔲 | NID.2, NID.3, NID.4 |
+| NID.5 | MUST | 5 | 3 | 0.85 | 0.5 | 25.50 | 🧪 | NID.2, NID.3, NID.4 |
 | NID.6 | WON'T-YET | — | — | — | — | Unscored | 🔒 | Explicit acquisition/source approval |
 
 NID.1 is first because evidence bounds all later contracts. When it finishes NID.2
