@@ -1,4 +1,4 @@
-## 0.3.0 (unreleased)
+## 0.3.0 (2026-09-29)
 
 - Feature: Additive identifier observations and pure GTIN assessment while
   preserving legacy model constructors and maps.
