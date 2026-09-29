@@ -132,7 +132,12 @@ loops and invalid response types/status. Support only enumerated verified endpoi
 variants; do not invent paths. Bound at 3 redirects, 30 seconds per operation and
 10 MiB response body initially. Test cancellation and client disposal. Redact errors:
 no QR URL, access key, CNPJ/CPF, consumer name or response body in diagnostics.
-Injected HTTP tests use synthetic inputs, never live fiscal links.
+The default native transport resolves every connection, rejects non-public IP
+answers, and connects to the validated numeric address directly without a proxy,
+so DNS rebinding cannot change the destination between validation and connection.
+Caller-supplied HTTP clients are trusted transports and must enforce equivalent
+destination controls. Runtimes without the guarded socket API reject network
+requests. Injected HTTP tests use synthetic inputs, never live fiscal links.
 
 ## Compatibility and release
 

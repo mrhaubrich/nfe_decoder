@@ -12,7 +12,7 @@ wins within the active workstream; hard compatibility/security gates always over
 | NID.1 | MUST | 5 | 2 | 0.95 | 0.5 | 19.00 | ✅ | Planning approval (received 2026-09-18) |
 | NID.2 | MUST | 5 | 3 | 0.9 | 0.75 | 18.00 | ✅ | NID.1 |
 | NID.3 | MUST | 5 | 3 | 0.9 | 0.5 | 27.00 | ✅ | NID.2 |
-| NID.4 | MUST | 5 | 3 | 0.85 | 0.75 | 17.00 | 🔲 | NID.1 |
+| NID.4 | MUST | 5 | 3 | 0.85 | 0.75 | 17.00 | 🧪 | NID.1; implementation/review complete, validation gates unresolved |
 | NID.5 | MUST | 5 | 3 | 0.85 | 0.5 | 25.50 | 🔲 | NID.2, NID.3, NID.4 |
 | NID.6 | WON'T-YET | — | — | — | — | Unscored | 🔒 | Explicit acquisition/source approval |
 

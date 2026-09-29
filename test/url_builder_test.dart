@@ -1,12 +1,33 @@
+import 'package:nfe_decoder/decoder/url_state_extractor.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('build url', () {
-    final url =
-        "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=43220701132478002858651060002225181164409967|2|1|2|B4C1CE5A575FDEEE31C85F0254A75E98E5E1EEC1";
-    expect(
-      url,
-      "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=43220701132478002858651060002225181164409967|2|1|2|B4C1CE5A575FDEEE31C85F0254A75E98E5E1EEC1",
-    );
+  test('accepts only enumerated RS HTTPS QR-code variants', () {
+    const supported = [
+      'https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=synthetic',
+      'https://www.sefaz.rs.gov.br/ASP/AAE_ROOT/NFE/SAT-WEB-NFE-NFC_QRCODE_1.asp?p=synthetic',
+      'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=synthetic',
+    ];
+    for (final url in supported) {
+      expect(URLStateExtractor(url).extractState(), 'RS');
+    }
+  });
+
+  test('rejects spoofed, unsafe and unsupported URL variants', () {
+    const rejected = [
+      'http://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=x',
+      'https://www.sefaz.rs.gov.br.attacker.invalid/NFCE/NFCE-COM.aspx?p=x',
+      'https://sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=x',
+      'https://user@www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=x',
+      'https://www.sefaz.rs.gov.br:8443/NFCE/NFCE-COM.aspx?p=x',
+      'https://www.sefaz.rs.gov.br/other?p=x',
+      'https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx',
+      'https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=',
+      'https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=x&p=y',
+      'not a URL',
+    ];
+    for (final url in rejected) {
+      expect(URLStateExtractor(url).extractState(), 'UNKNOWN', reason: url);
+    }
   });
 }

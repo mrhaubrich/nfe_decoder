@@ -1,6 +1,6 @@
 # Identifier capture and compatibility
 
-Status: 🔄 Active workstream; approved 2026-09-18; NID.3 is complete.
+Status: 🔄 Active workstream; approved 2026-09-18; NID.3 is complete; NID.4 implementation/review are complete and validation gates remain unresolved.
 Contract: [identifier contract](../docs/identifier_contract.md).
 Coordination: GPreços Phase 12 I12.1 depends on NID.5; NID.6 is not required.
 
@@ -153,7 +153,7 @@ analyzer-plugin dependency trace.
 
 ## NID.4 — Safe URL and request boundary
 
-Status: 🔲 | MoSCoW: MUST | RICE: 17.00
+Status: 🧪 | MoSCoW: MUST | RICE: 17.00
 Reach: 5 | Impact: 3 | Confidence: 0.85 | Effort: 0.75 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -167,9 +167,9 @@ Files or areas: lib/decoder/url_state_extractor.dart; url_builder.dart; http_cli
 Schema changes: No independent schema/version change; consume the approved schema/transport contract. Any deviation returns to architect/planner.
 
 Acceptance criteria:
-- [ ] Evidence-based HTTPS endpoints, no userinfo/unapproved ports; max 3 redirects, 30-second operation, 10 MiB response; disposal/cancellation.
-- [ ] Negative cases covered: Host substring spoofing, HTTP downgrade, cross-host/private destinations, loops, oversized/error response and timeout.
-- [ ] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
+- [x] Evidence-based HTTPS endpoints, no userinfo/unapproved ports; max 3 redirects, 30-second operation, 10 MiB response; disposal/cancellation.
+- [x] Negative cases covered: Host substring spoofing, HTTP downgrade, cross-host/private destinations, loops, oversized/error response and timeout.
+- [x] Actual diff reviewed; findings resolved; final security review reports no remaining P1/P2 findings.
 
 Validation: Injected HTTP clients only; safe exception/log tests.
 
@@ -180,7 +180,7 @@ outside this task. NID tasks never own app resolution/storage; app tasks never s
 change the decoder wire contract.
 
 Required completion evidence: Enumerated supported variants and negative request matrix; no raw fiscal URLs in tests/logs.
-Completion evidence: Not executed; implementation not started.
+Completion evidence: Exact allowlist covers the two evidenced `www.sefaz.rs.gov.br` QR routes and the evidenced `dfe-portal.svrs.rs.gov.br` QR route. URL parsing and every manual redirect use this policy; the native default transport is implemented to resolve each connection, reject non-public IPv4/IPv6 answers, and connect to a validated numeric address without proxies. Redirects cap at three; operation timeout and response size cap at 30 seconds and 10 MiB; only successful HTML responses are accepted. Safe exceptions omit URLs/bodies. Custom injected clients are documented as trusted transports; non-I/O defaults fail closed. Synthetic request and IP-policy tests cover the negative matrix. Reviewer findings on caller-overridable caps, malformed redirect cancellation, duplicate/empty `p`, and reserved IPv6 answers were fixed; final security review reports no remaining P1/P2 findings. Validator evidence (Dart 3.12.1): formatting passed for 41 files; focused tests passed (15); full suite passed (89); `git diff --check` passed. `dart analyze` reported dependency setup conflict between `analysis_server_plugin` and `saropa_lints` and one existing info. `dart pub publish --dry-run` exited 65 from the dirty worktree and reported the pre-existing plural `docs/` layout warning. Real network DNS/socket behavior was not exercised. NID.4 remains 🧪 because the required analyzer and package dry-run validation gates are unresolved; test success and review do not establish live DNS/socket behavior or publication readiness.
 
 ## NID.5 — Compatibility and release gate
 
