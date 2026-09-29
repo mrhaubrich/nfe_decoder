@@ -5,7 +5,8 @@ NID.1–NID.5 are ✅; the required compatibility/release gate passed on immutab
 Planning approval does not modify devices. User confirmation establishes that
 0.3.0 is published and is currently the latest Pub version; its contract and
 immutable commit remain unchanged. The user explicitly authorized NID.7
-implementation on 2026-09-29; decoder implementation is complete and unpublished.
+implementation on 2026-09-29; decoder implementation is complete, and the user
+confirmed 0.4.0 publication on 2026-09-29.
 
 ## Tree and ownership
 
@@ -109,4 +110,4 @@ Release preparation (2026-09-29): the package-page check at that time showed hos
 
 NID.7 evidence (2026-09-29, Dart SDK 3.12.1): focused public compatibility tests passed (9), full decoder suite passed (98), formatting passed for all 42 Dart files, analyzer exited 0 with one pre-existing informational lint and analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Package dry-run from a clean temporary copy including the six modified files exited 0 with zero warnings; the in-checkout dry-run exited 65 because the working tree was modified. Independent review found no actionable issues. No package was published; at this validation point, `CHANGELOG.md` had a 0.4.0 draft with its date pending. App consumption and persistence remain downstream GPreços I12.2.
 
-0.4.0 release preparation (2026-09-29): updated `pubspec.yaml`, README dependency guidance, parser provenance and the changelog date to 0.4.0 / 2026-09-29. The exact package dry-run from a clean temporary copy passed with zero warnings. The release remains unpublished; no credential, tag, commit, or Pub upload was performed.
+0.4.0 release preparation (2026-09-29): updated `pubspec.yaml`, README dependency guidance, parser provenance and the changelog date to 0.4.0 / 2026-09-29. The exact package dry-run from a clean temporary copy passed with zero warnings. No credential or Pub upload was performed by the agent; the user subsequently confirmed publication on 2026-09-29.

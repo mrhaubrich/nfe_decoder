@@ -1,6 +1,7 @@
 # Phase 2 — Malformed Raw Observation Retention
 
-Status: ✅ Decoder implementation and validation complete; package unpublished.
+Status: ✅ Decoder implementation and validation complete; 0.4.0 publication
+user-confirmed on 2026-09-29.
 Owner: nfe_decoder. Cross-repository consumer: GPreços Phase 12.
 Published contract baseline: immutable nfe_decoder 0.3.0, confirmed as latest on Pub, commit
 `758785d3fba531a8851f516c963e4ab29837d1c0`.
@@ -131,6 +132,7 @@ plugin dependency-resolution diagnostic (`analysis_server_plugin` versus
 `saropa_lints 9.10.0`); `git diff --check` passed. Package dry-run from a clean
 temporary copy with the six changed files overlaid exited 0 with zero warnings;
 the in-checkout attempt exited 65 solely because the working tree was modified.
-Independent review found no actionable issues. No package was published and no
-app integration/persistence claim is made; those remain downstream GPreços
+Independent review found no actionable issues. At NID.7 completion, no package
+had been published; the user later confirmed 0.4.0 publication on 2026-09-29.
+No app integration/persistence claim is made; those remain downstream GPreços
 I12.2 evidence.
