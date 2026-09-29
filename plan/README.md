@@ -23,7 +23,7 @@ for current capture. No duplicated agent tree or generic skills are needed.
 |---|---|---|---:|---|---|
 | NID.1 | Source evidence/fixture contract | MUST | 19.00 | ✅ | Planning approval received |
 | NID.2 | Identifier value/validation | MUST | 18.00 | ✅ | NID.1 |
-| NID.3 | RS observations | MUST | 27.00 | 🔲 | NID.2 |
+| NID.3 | RS observations | MUST | 27.00 | 🧪 | NID.2 |
 | NID.4 | Safe request boundary | MUST | 17.00 | 🔲 | NID.1 |
 | NID.5 | Compatibility/release gate | MUST | 25.50 | 🔲 | NID.2, NID.3, NID.4 |
 | NID.6 | Additional XML adapter | WON'T-YET | Unscored | 🔒 | Explicit acquisition approval |

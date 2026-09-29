@@ -1,4 +1,5 @@
 import 'package:html/dom.dart';
+import 'package:nfe_decoder/models/identifier_observation.dart';
 import 'package:nfe_decoder/models/item.dart';
 import 'package:nfe_decoder/models/nfe_item.dart';
 
@@ -16,9 +17,10 @@ class RSItemScraper {
 
   RSItemScraper(this._element);
 
-  NfeItem scrapeItem() {
+  NfeItem scrapeItem({int? sourceOrdinal}) {
     String descricao = _extractText('descricao');
-    String codigoStr = _extractText('codigo').replaceAll('\n', '').trim();
+    final rawCodigo = _element.querySelector(_selectors['codigo']!)?.text;
+    String codigoStr = rawCodigo?.replaceAll('\n', '').trim() ?? '';
     String codigo = codigoStr
         .split('Código:')
         .last
@@ -46,6 +48,40 @@ class RSItemScraper {
       quantidade: quantidade,
       valorUnitario: valorUnitario,
       valorTotal: valorTotal,
+      identifierContractVersion: 1,
+      identifiers: [_retailerCodeObservation(rawCodigo, codigo)],
+      sourceOrdinal: sourceOrdinal,
+      sourceMetadata: const {
+        'layout': 'rs-html-item',
+        'captureMethod': 'html.RCod',
+        'parser': 'RSItemScraper',
+        'parserVersion': 'nfe_decoder-0.2.0',
+        'sourceOrdinalBasis': 'rs-html-tr-order',
+      },
+    );
+  }
+
+  IdentifierObservation _retailerCodeObservation(
+    String? rawCodigo,
+    String codigo,
+  ) {
+    final presence = rawCodigo == null
+        ? 'absent'
+        : rawCodigo.trim().isEmpty
+        ? 'present-empty'
+        : 'present-value';
+    return IdentifierObservation(
+      rawValue: rawCodigo ?? '',
+      normalizedValue: codigo.isEmpty ? null : codigo,
+      representationLength: RegExp(r'^\d+$').hasMatch(codigo)
+          ? codigo.length
+          : null,
+      sourceField: 'html.RCod',
+      role: 'retailer',
+      presence: presence,
+      validation: 'unchecked',
+      classification: 'retailer-code',
+      evidenceBasis: 'html-label',
     );
   }
 

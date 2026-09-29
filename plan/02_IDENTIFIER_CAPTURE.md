@@ -1,6 +1,6 @@
 # Identifier capture and compatibility
 
-Status: 🔄 Active workstream; approved 2026-09-18; NID.2 is complete.
+Status: 🔄 Active workstream; approved 2026-09-18; NID.3 is validation-required.
 Contract: [identifier contract](../docs/identifier_contract.md).
 Coordination: GPreços Phase 12 I12.1 depends on NID.5; NID.6 is not required.
 
@@ -112,7 +112,7 @@ warnings; publication remains a separate action.
 
 ## NID.3 — RS observation extraction
 
-Status: 🔲 | MoSCoW: MUST | RICE: 27.00
+Status: 🧪 | MoSCoW: MUST | RICE: 27.00
 Reach: 5 | Impact: 3 | Confidence: 0.9 | Effort: 0.5 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -126,9 +126,9 @@ Files or areas: lib/models/nfe_item.dart; lib/scraper/rs/fields/rs_item_scraper.
 Schema changes: No independent schema/version change; consume the approved schema/transport contract. Any deviation returns to architect/planner.
 
 Acceptance criteria:
-- [ ] Old monetary output and codigo compatibility retained; raw field captured before lossy cleanup; no fabricated GTIN fields.
-- [ ] Negative cases covered: Absent versus empty code, parentheses inside code, unknown labels and duplicate rows.
-- [ ] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
+- [x] Old monetary output and codigo compatibility retained; raw field captured before lossy cleanup; no fabricated GTIN fields.
+- [x] Negative cases covered: Absent versus empty code, parentheses inside code, unknown labels and duplicate rows.
+- [x] Actual diff reviewed; task-specific failures resolved or explicitly retained as blockers.
 
 Validation: Existing fixture tests and synthetic identifier-metadata tests.
 
@@ -139,7 +139,16 @@ outside this task. NID tasks never own app resolution/storage; app tasks never s
 change the decoder wire contract.
 
 Required completion evidence: Legacy-field parity, source order preservation and zero invented GTIN assertions.
-Completion evidence: Not executed; implementation not started.
+Completion evidence: Added additive NfeItem identifier metadata, raw `html.RCod`
+observations with absent/present-empty/present-value states, explicit retailer
+classification, source ordinals based on RS `<tr>` order, parser/layout metadata,
+and tolerant map round-tripping while preserving legacy fields. Synthetic tests
+cover absent versus empty codes, parentheses, unknown labels, duplicate rows,
+ordering, metadata, and no fabricated GTIN values. Format, analyzer, full 77-test
+suite, focused RS tests, and diff checks pass on Dart 3.12.1. Package dry-run has
+the existing dirty-worktree and plural `docs` warnings. Independent reviewer
+handoff was attempted but timed out after three bounded waits; review evidence is
+therefore still validation-required.
 
 ## NID.4 — Safe URL and request boundary
 

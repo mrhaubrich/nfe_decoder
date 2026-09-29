@@ -10,7 +10,13 @@ class RSItemsScraper {
   List<NfeItem> scrapeItems() {
     final itemElements = _element.querySelectorAll('tr');
     return itemElements
-        .map((element) => RSItemScraper(element).scrapeItem())
+        .asMap()
+        .entries
+        .map(
+          (entry) => RSItemScraper(
+            entry.value,
+          ).scrapeItem(sourceOrdinal: entry.key + 1),
+        )
         .toList();
   }
 }
