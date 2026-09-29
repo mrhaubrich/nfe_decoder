@@ -1,7 +1,7 @@
 # Adaptive identifier-capture roadmap
 
 Approved 2026-09-18. Active workstream: identifier observations and compatibility.
-NID.1–NID.3 are ✅; NID.4 implementation and review are complete, with validation-required status retained for the analyzer and package dry-run gates.
+NID.1–NID.4 are ✅; NID.5 is the next required compatibility/release gate.
 Planning approval does not publish packages or modify devices.
 
 ## Tree and ownership
@@ -24,7 +24,7 @@ for current capture. No duplicated agent tree or generic skills are needed.
 | NID.1 | Source evidence/fixture contract | MUST | 19.00 | ✅ | Planning approval received |
 | NID.2 | Identifier value/validation | MUST | 18.00 | ✅ | NID.1 |
 | NID.3 | RS observations | MUST | 27.00 | ✅ | NID.2 |
-| NID.4 | Safe request boundary | MUST | 17.00 | 🧪 | NID.1 |
+| NID.4 | Safe request boundary | MUST | 17.00 | ✅ | NID.1 |
 | NID.5 | Compatibility/release gate | MUST | 25.50 | 🔲 | NID.2, NID.3, NID.4 |
 | NID.6 | Additional XML adapter | WON'T-YET | Unscored | 🔒 | Explicit acquisition approval |
 
@@ -82,4 +82,4 @@ need actual evidence. No provider or additional XML integration is required for 
 | App compatibility | NID.5 -> I12.1 | public exports/package/maps | Released or approved artifact/commit; app adapter fixture |
 | Optional XML | NID.6 | Future approved adapter | No completion evidence; locked |
 
-Evidence ledger (2026-09-29): NID.4 implementation and final security review are complete; final review reports no remaining P1/P2 findings. Validation used Dart 3.12.1: formatting passed for 41 files, focused tests passed (15), full suite passed (89), and `git diff --check` passed. `dart analyze` did not complete cleanly because dependency setup reported a conflict between `analysis_server_plugin` and `saropa_lints`, alongside one existing info. `dart pub publish --dry-run` exited 65 because the worktree is dirty and also reported the pre-existing plural `docs/` layout warning. Synthetic tests do not prove real network DNS/socket behavior, which was not exercised. Package publication and live-source validation have not occurred. NID.4 remains 🧪 until the failing validation gates are resolved or explicitly accepted through the project process; no runtime-network claim is made.
+Evidence ledger (2026-09-29): NID.4 implementation and final security review are complete; final review reports no remaining P1/P2 findings. Validation used Dart 3.12.1: formatting passed for 41 files, focused tests passed (15), full suite passed (89), `git diff --check` passed, and `dart analyze` exited 0 with one existing informational lint. The analyzer also printed an optional analyzer-plugin setup conflict between `analysis_server_plugin` and `saropa_lints`; this did not fail the analyzer command. `dart pub publish --dry-run` exited 65 on the pre-existing plural `docs/` layout warning; this compatibility/release check belongs to NID.5 and does not block NID.4. Synthetic tests do not prove real network DNS/socket behavior, which was not exercised; no runtime-network claim is made. Package publication and live-source validation have not occurred.
