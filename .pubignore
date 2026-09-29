@@ -1,0 +1,24 @@
+# Keep Dart build output and local configuration out of the package.
+.dart_tool/
+.packages
+build/
+doc/api/
+.env*
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+.flutter-plugins
+.flutter-plugins-dependencies
+reports
+.saropa
+
+# Repository-only governance, tool configuration, and fixtures.
+/AGENTS.md
+/analysis_options.yaml
+/analysis_options_custom.yaml
+/mise.toml
+/plan/
+/test/
