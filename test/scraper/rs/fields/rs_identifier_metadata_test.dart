@@ -12,6 +12,9 @@ void main() {
       final empty = RSItemScraper(
         Element.html(_row(codeMarkup: '<span class="RCod"> </span>')),
       ).scrapeItem(sourceOrdinal: 8);
+      final labeledEmpty = RSItemScraper(
+        Element.html(_row(codeMarkup: '<span class="RCod">(Código: )</span>')),
+      ).scrapeItem(sourceOrdinal: 9);
 
       expect(absent.item.codigo, isEmpty);
       expect(absent.identifiers.single.presence, 'absent');
@@ -31,6 +34,10 @@ void main() {
       expect(empty.identifiers.single.presence, 'present-empty');
       expect(empty.identifiers.single.rawValue.trim(), isEmpty);
       expect(empty.sourceOrdinal, 8);
+
+      expect(labeledEmpty.item.codigo, isEmpty);
+      expect(labeledEmpty.identifiers.single.rawValue, '(Código: )');
+      expect(labeledEmpty.identifiers.single.presence, 'present-empty');
     });
 
     test('preserves raw parentheses and does not invent a GTIN', () {
@@ -69,6 +76,8 @@ void main() {
 
         expect(item.item.codigo, 'Código alternativo: 321');
         expect(observation.rawValue, contains('Código alternativo'));
+        expect(observation.normalizedValue, isNull);
+        expect(observation.classification, 'unknown');
         expect(observation.gtin14, isNull);
       },
     );

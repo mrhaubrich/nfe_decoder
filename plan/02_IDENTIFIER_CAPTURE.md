@@ -1,6 +1,6 @@
 # Identifier capture and compatibility
 
-Status: 🔄 Active workstream; approved 2026-09-18; NID.3 is validation-required.
+Status: 🔄 Active workstream; approved 2026-09-18; NID.3 is complete.
 Contract: [identifier contract](../docs/identifier_contract.md).
 Coordination: GPreços Phase 12 I12.1 depends on NID.5; NID.6 is not required.
 
@@ -112,7 +112,7 @@ warnings; publication remains a separate action.
 
 ## NID.3 — RS observation extraction
 
-Status: 🧪 | MoSCoW: MUST | RICE: 27.00
+Status: ✅ | MoSCoW: MUST | RICE: 27.00
 Reach: 5 | Impact: 3 | Confidence: 0.9 | Effort: 0.5 person-weeks
 
 Lock reason: N/A; dependency sequencing applies.
@@ -145,10 +145,11 @@ classification, source ordinals based on RS `<tr>` order, parser/layout metadata
 and tolerant map round-tripping while preserving legacy fields. Synthetic tests
 cover absent versus empty codes, parentheses, unknown labels, duplicate rows,
 ordering, metadata, and no fabricated GTIN values. Format, analyzer, full 77-test
-suite, focused RS tests, and diff checks pass on Dart 3.12.1. Package dry-run has
-the existing dirty-worktree and plural `docs` warnings. Independent reviewer
-handoff was attempted but timed out after three bounded waits; review evidence is
-therefore still validation-required.
+suite, focused RS tests, and diff checks pass on Dart 3.12.1. Independent review
+found blank RCod presence and unknown-label normalization issues; both were fixed,
+and the reviewer confirmed the fixes with no remaining findings. Full validation
+was rerun successfully. Analyzer reports the existing informational lint and
+analyzer-plugin dependency trace.
 
 ## NID.4 — Safe URL and request boundary
 

@@ -65,22 +65,33 @@ class RSItemScraper {
     String? rawCodigo,
     String codigo,
   ) {
+    final labelIndex = rawCodigo?.indexOf('Código:') ?? -1;
+    final hasRecognizedLabel = labelIndex >= 0;
+    final labeledValue = hasRecognizedLabel
+        ? rawCodigo!
+              .substring(labelIndex + 'Código:'.length)
+              .replaceAll(')', '')
+              .replaceAll('(', '')
+              .trim()
+        : '';
     final presence = rawCodigo == null
         ? 'absent'
-        : rawCodigo.trim().isEmpty
+        : rawCodigo.trim().isEmpty ||
+              (hasRecognizedLabel && labeledValue.isEmpty)
         ? 'present-empty'
         : 'present-value';
     return IdentifierObservation(
       rawValue: rawCodigo ?? '',
-      normalizedValue: codigo.isEmpty ? null : codigo,
-      representationLength: RegExp(r'^\d+$').hasMatch(codigo)
+      normalizedValue: !hasRecognizedLabel || codigo.isEmpty ? null : codigo,
+      representationLength:
+          hasRecognizedLabel && RegExp(r'^\d+$').hasMatch(codigo)
           ? codigo.length
           : null,
       sourceField: 'html.RCod',
       role: 'retailer',
       presence: presence,
       validation: 'unchecked',
-      classification: 'retailer-code',
+      classification: hasRecognizedLabel ? 'retailer-code' : 'unknown',
       evidenceBasis: 'html-label',
     );
   }
