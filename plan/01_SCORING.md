@@ -15,6 +15,7 @@ wins within the active workstream; hard compatibility/security gates always over
 | NID.4 | MUST | 5 | 3 | 0.85 | 0.75 | 17.00 | ✅ | NID.1 |
 | NID.5 | MUST | 5 | 3 | 0.85 | 0.5 | 25.50 | ✅ | NID.2, NID.3, NID.4 |
 | NID.6 | WON'T-YET | — | — | — | — | Unscored | 🔒 | Explicit acquisition/source approval |
+| NID.7 | MUST | 4 | 2 | 0.8 | 1 | 6.40 | 🔲 | GPreços I12.1 |
 
 NID.1 is first because evidence bounds all later contracts. When it finishes NID.2
 precedes NID.4 by score, unless a recorded dependency discovery requires a change.
@@ -24,3 +25,10 @@ have impact 3. Confidence reflects inspected contracts and implementation uncert
 Recalculate after phase exits, major evidence or approved scope changes; record the
 reason in README decisions. Locked work is excluded; do not assign speculative scores.
 Validation tasks get their own scores and require actual evidence.
+
+NID.7 is scored separately for its post-I12.1 follow-up phase: reach 4 (app
+consumers reading the public typed map API), impact 2 (retention/compatibility
+protection), confidence 0.8 (the parser filters malformed entries, while exact
+safe payload policy remains for design), and effort 1 person-week including
+implementation/review/validation. It is dependency-blocked until I12.1 is
+complete and does not change current phase selection.

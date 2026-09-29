@@ -1,6 +1,8 @@
 # Identifier capture and compatibility
 
-Status: 🔄 Active workstream; approved 2026-09-18; NID.1–NID.5 are complete.
+Status: ✅ Initial capture/compatibility workstream; approved 2026-09-18;
+NID.1–NID.5 are complete. Follow-up NID.7 is tracked separately in
+[Phase 2](03_PHASE2_RAW_OBSERVATIONS.md) and waits for GPreços I12.1.
 Contract: [identifier contract](../doc/identifier_contract.md).
 Coordination: GPreços Phase 12 I12.1 depends on NID.5; NID.6 is not required.
 
@@ -211,7 +213,7 @@ outside this task. NID tasks never own app resolution/storage; app tasks never s
 change the decoder wire contract.
 
 Required completion evidence: Exact commit/artifact and compatibility matrix; publishing remains a separate consequential action.
-Completion evidence: Decoder commit `758785d3fba531a8851f516c963e4ab29837d1c0` is the tested immutable 0.3.0 artifact. The compatibility matrix, independent review, full validation, and clean package dry-run are recorded in the NID.5 evidence ledger in `plan/README.md`. Publication remains a separate action and was not performed.
+Completion evidence: Decoder commit `758785d3fba531a8851f516c963e4ab29837d1c0` is the tested immutable 0.3.0 artifact. The compatibility matrix, independent review, full validation, clean package dry-run, and subsequent publication confirmation are recorded in the NID.5 evidence ledger in `plan/README.md`. Publication of 0.3.0 does not include or authorize later NID.7 changes.
 
 ## NID.6 — Additional XML capture adapter
 

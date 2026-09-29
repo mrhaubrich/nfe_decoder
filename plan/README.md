@@ -1,13 +1,19 @@
 # Adaptive identifier-capture roadmap
 
-Approved 2026-09-18. Active workstream: identifier observations and compatibility.
+Approved 2026-09-18. Initial workstream: identifier observations and compatibility.
 NID.1–NID.5 are ✅; the required compatibility/release gate passed on immutable commit `758785d3fba531a8851f516c963e4ab29837d1c0`.
-Planning approval does not publish packages or modify devices.
+Planning approval does not modify devices. User confirmation establishes that
+0.3.0 is published and is currently the latest Pub version; its contract and
+immutable commit remain unchanged. Malformed raw observation retention is a
+separate follow-up phase gated on GPreços I12.1; NID.7 remains a later,
+separate change and is neither authorized nor published.
 
 ## Tree and ownership
 
 - `01_SCORING.md`: complete MoSCoW/RICE matrix, scales and recalculation.
 - `02_IDENTIFIER_CAPTURE.md`: stage gates, dependencies and atomic task contracts.
+- `03_PHASE2_RAW_OBSERVATIONS.md`: decoder-owned malformed observation payload
+  retention, gated on GPreços I12.1.
 - `../doc/identifier_contract.md`: authoritative decoder wire/source contract.
 - `../AGENTS.md`: boundaries, commands and lightweight role handoff.
 - This file: decisions, risks, traceability and execution checklist.
@@ -15,9 +21,10 @@ Planning approval does not publish packages or modify devices.
 GPreços owns app identity/storage in `plan/14_PHASE12_PRODUCT_IDENTITY.md` and
 `docs/product_identity_contract.md`. Coordinate by task IDs and tested package artifact;
 no absolute local dependency paths. NID.5 precedes GPreços I12.1. NID.6 is not a gate
-for current capture. No duplicated agent tree or generic skills are needed.
+for current capture. NID.7 follows I12.1 and gates app persistence work I12.2.
+No duplicated agent tree or generic skills are needed.
 
-## Task checklist
+## Initial workstream task checklist
 
 | Task | Scope | MoSCoW | RICE | Status | Dependencies |
 |---|---|---|---:|---|---|
@@ -27,7 +34,6 @@ for current capture. No duplicated agent tree or generic skills are needed.
 | NID.4 | Safe request boundary | MUST | 17.00 | ✅ | NID.1 |
 | NID.5 | Compatibility/release gate | MUST | 25.50 | ✅ | NID.2, NID.3, NID.4 |
 | NID.6 | Additional XML adapter | WON'T-YET | Unscored | 🔒 | Explicit acquisition approval |
-
 NID.6 Lock reason: no specific XML acquisition or access contract is approved.
 Unlock condition: owner approves a user-supplied XML or authorized endpoint flow,
 security limits and representative safe fixtures. Public consultation is insufficient.
@@ -54,13 +60,14 @@ need actual evidence. No provider or additional XML integration is required for 
 
 ## Decisions
 
-| ID | Approved decision (2026-09-18) | Rationale / rejected alternative |
+| ID | Decision (approved 2026-09-18 unless noted) | Rationale / rejected alternative |
 |---|---|---|
 | ND-001 | Small capture roadmap coordinated with I12 | Contract/version ownership adds value; reject copied agent bureaucracy |
-| ND-002 | Optional observation contract v1, proposed 0.3.0 | Preserve legacy Item/maps; reject code-as-GTIN and app resolution in library |
+| ND-002 | Optional observation contract v1, published as 0.3.0 | Preserve legacy Item/maps; reject code-as-GTIN and app resolution in library |
 | ND-003 | Pure validator plus explicit source provenance | Checksum is structural, not assignment proof; raw evidence survives |
 | ND-004 | Bounded verified HTTPS requests and synthetic tests | Prevent fiscal leaks/unsafe redirects; do not assume current substring validation is safe |
 | ND-005 | XML adapter remains locked | Public consultation does not prove an approved downloadable source |
+| ND-006 | 2026-09-29: malformed observation payload retention is a post-I12.1 decoder phase | Preserve malformed JSON-compatible payloads as inert evidence while retaining typed API compatibility; do not revise immutable 0.3.0 |
 
 ## Risks
 
@@ -71,6 +78,7 @@ need actual evidence. No provider or additional XML integration is required for 
 | Legacy consumer breaks or drops metadata | Medium | High | Constructor/map fixtures and app handoff | architect | NID.2/5 | Old caller fails or adapter loses fields | Open |
 | Fiscal data escapes through HTTP/errors | Medium | Critical | Exact endpoints, redirect bounds, redaction; synthetic tests pass, but live DNS/socket behavior remains unexercised | security reviewer | NID.4/5 | Raw URL/body logged or unsafe target requested | Open |
 | XML scope expands into unsupported access | Medium | High | Explicit lock and acquisition review | planner | NID.6 | Assumed public XML or credential requirement | Locked |
+| Malformed observation payload is dropped or trusted | Medium | High | Additive inert raw channel, strict typed parser, negative round-trip tests | decoder implementer | NID.7 | Missing/non-string `rawValue` is lost or enters typed identifiers | Planned |
 
 ## Traceability and evidence
 
@@ -81,9 +89,20 @@ need actual evidence. No provider or additional XML integration is required for 
 | Safe capture | NID.4 | decoder HTTP/URL | Injected request/redirect/redaction tests |
 | App compatibility | NID.5 -> I12.1 | public exports/package/maps | Released or approved artifact/commit; app adapter fixture |
 | Optional XML | NID.6 | Future approved adapter | No completion evidence; locked |
+| Decoder malformed raw observations | NID.7 | Decoder map model and public API fixtures | Malformed and non-string `rawValue` round-trip while remaining excluded from typed/actionable identifiers |
+| App malformed-payload consumption | GPreços I12.2 (after NID.7) | App adapter/persistence boundary | App retains quarantined payloads without feeding identifier resolution; validated by I12.2 |
 
-Evidence ledger (2026-09-29): NID.4 implementation and final security review are complete; final review reports no remaining P1/P2 findings. Validation used Dart 3.12.1: formatting passed for 41 files, focused tests passed (15), full suite passed (89), `git diff --check` passed, and `dart analyze` exited 0 with one existing informational lint. The analyzer also printed an optional analyzer-plugin setup conflict between `analysis_server_plugin` and `saropa_lints`; this did not fail the analyzer command. `dart pub publish --dry-run` exited 65 on the pre-existing plural `docs/` layout warning; this compatibility/release check belongs to NID.5 and does not block NID.4. Synthetic tests do not prove real network DNS/socket behavior, which was not exercised; no runtime-network claim is made. Package publication and live-source validation have not occurred.
+## Phase 2 follow-up task
 
-NID.5 evidence (2026-09-29, Dart 3.12.1): bumped package metadata and release notes to 0.3.0, corrected the README to RS-only support, moved the contract to Pub's singular `doc/` layout, and added public-entry-point tests for legacy `Item`/`NfeItem`/`NFE` constructors and maps, future contract/extension preservation, malformed observations, and GTIN API behavior. Parser provenance now reports 0.3.0. The current GPreços consumer is the hosted `nfe_decoder` 0.2.0 artifact (`^0.2.0`, lockfile 0.2.0); no local path dependency is configured, and app migration remains I12.1. Dart 3.12.1 validation: format check passed (42 files), full test suite passed (93 tests), analyzer exited 0 with one pre-existing informational lint and an analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Independent review found no actionable diff findings. Committed as immutable decoder commit `758785d3fba531a8851f516c963e4ab29837d1c0`; subsequent `mise exec -- dart pub publish --dry-run` exited 0 with zero warnings and included `doc/identifier_contract.md`. Publication was not performed. GPreços adapter metadata preservation remains downstream I12.1 and is not claimed as proven here.
+| ID | Scope | MoSCoW | RICE | Status | Dependencies |
+|---|---|---|---:|---|---|
+| NID.7 | Preserve malformed raw observation payloads | MUST | 6.40 | 🔲 | GPreços I12.1 |
 
-Release preparation (2026-09-29): Pub's package-page check still shows hosted 0.2.0. Added `.pubignore`, retaining build, local-config and generated-doc exclusions while omitting repository-only tests/fixtures, plans, and agent/tool configuration from the archive. A value-redacted pattern scan found URL/access-key/CNPJ/CPF/consumer markers in legacy HTML mock fixtures, so they are not included in the release archive; fixture contents were not printed or modified. `mise exec -- dart doc` documented 28 public libraries with zero warnings/errors. The release-candidate dry run now includes `pubspec.yaml`, the runtime library, README/changelog/license and contract documentation (19 KB compressed) and exits 0 with zero warnings. No package publication or release tag was performed.
+NID.7 is not selectable until its cross-repository dependency is complete. It is
+the only unblocked task in its phase after I12.1; I12.2 waits for NID.7.
+
+Evidence ledger (2026-09-29): NID.4 implementation and final security review are complete; final review reports no remaining P1/P2 findings. Validation used Dart 3.12.1: formatting passed for 41 files, focused tests passed (15), full suite passed (89), `git diff --check` passed, and `dart analyze` exited 0 with one existing informational lint. The analyzer also printed an optional analyzer-plugin setup conflict between `analysis_server_plugin` and `saropa_lints`; this did not fail the analyzer command. `dart pub publish --dry-run` exited 65 on the pre-existing plural `docs/` layout warning; this compatibility/release check belongs to NID.5 and does not block NID.4. Synthetic tests do not prove real network DNS/socket behavior, which was not exercised; no runtime-network claim is made. The package was published subsequently; user confirmation states Pub's latest version is 0.3.0.
+
+NID.5 evidence (2026-09-29, Dart 3.12.1): bumped package metadata and release notes to 0.3.0, corrected the README to RS-only support, moved the contract to Pub's singular `doc/` layout, and added public-entry-point tests for legacy `Item`/`NfeItem`/`NFE` constructors and maps, future contract/extension preservation, malformed observations, and GTIN API behavior. Parser provenance now reports 0.3.0. The GPreços consumer was then on the hosted `nfe_decoder` 0.2.0 artifact (`^0.2.0`, lockfile 0.2.0); no local path dependency was configured, and app migration remained I12.1. Dart 3.12.1 validation: format check passed (42 files), full test suite passed (93 tests), analyzer exited 0 with one pre-existing informational lint and an analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Independent review found no actionable diff findings. Committed as immutable decoder commit `758785d3fba531a8851f516c963e4ab29837d1c0`; a subsequent package dry-run exited 0 with zero warnings and included `doc/identifier_contract.md`. User subsequently confirmed 0.3.0 was published and Pub's latest version is 0.3.0. GPreços adapter metadata preservation remains downstream I12.1 and is not claimed as proven here.
+
+Release preparation (2026-09-29): the package-page check at that time showed hosted 0.2.0. Added `.pubignore`, retaining build, local-config and generated-doc exclusions while omitting repository-only tests/fixtures, plans, and agent/tool configuration from the archive. A value-redacted pattern scan found URL/access-key/CNPJ/CPF/consumer markers in legacy HTML mock fixtures, so they are not included in the release archive; fixture contents were not printed or modified. `mise exec -- dart doc` documented 28 public libraries with zero warnings/errors. The release-candidate dry run included `pubspec.yaml`, the runtime library, README/changelog/license and contract documentation (19 KB compressed) and exited 0 with zero warnings. User subsequently confirmed 0.3.0 publication; NID.7 remains unpublished and unapproved.
