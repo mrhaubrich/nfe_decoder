@@ -4,9 +4,8 @@ Approved 2026-09-18. Initial workstream: identifier observations and compatibili
 NID.1–NID.5 are ✅; the required compatibility/release gate passed on immutable commit `758785d3fba531a8851f516c963e4ab29837d1c0`.
 Planning approval does not modify devices. User confirmation establishes that
 0.3.0 is published and is currently the latest Pub version; its contract and
-immutable commit remain unchanged. Malformed raw observation retention is a
-separate follow-up phase gated on GPreços I12.1; NID.7 remains a later,
-separate change and is neither authorized nor published.
+immutable commit remain unchanged. The user explicitly authorized NID.7
+implementation on 2026-09-29; decoder implementation is complete and unpublished.
 
 ## Tree and ownership
 
@@ -96,13 +95,18 @@ need actual evidence. No provider or additional XML integration is required for 
 
 | ID | Scope | MoSCoW | RICE | Status | Dependencies |
 |---|---|---|---:|---|---|
-| NID.7 | Preserve malformed raw observation payloads | MUST | 6.40 | 🔲 | GPreços I12.1 |
+| NID.7 | Preserve malformed raw observation payloads | MUST | 6.40 | ✅ | GPreços I12.1 |
 
-NID.7 is not selectable until its cross-repository dependency is complete. It is
-the only unblocked task in its phase after I12.1; I12.2 waits for NID.7.
+NID.7's cross-repository dependency and decoder implementation are complete;
+package publication remains a separate action. GPreços I12.2 owns app
+consumption and persistence evidence.
 
 Evidence ledger (2026-09-29): NID.4 implementation and final security review are complete; final review reports no remaining P1/P2 findings. Validation used Dart 3.12.1: formatting passed for 41 files, focused tests passed (15), full suite passed (89), `git diff --check` passed, and `dart analyze` exited 0 with one existing informational lint. The analyzer also printed an optional analyzer-plugin setup conflict between `analysis_server_plugin` and `saropa_lints`; this did not fail the analyzer command. `dart pub publish --dry-run` exited 65 on the pre-existing plural `docs/` layout warning; this compatibility/release check belongs to NID.5 and does not block NID.4. Synthetic tests do not prove real network DNS/socket behavior, which was not exercised; no runtime-network claim is made. The package was published subsequently; user confirmation states Pub's latest version is 0.3.0.
 
 NID.5 evidence (2026-09-29, Dart 3.12.1): bumped package metadata and release notes to 0.3.0, corrected the README to RS-only support, moved the contract to Pub's singular `doc/` layout, and added public-entry-point tests for legacy `Item`/`NfeItem`/`NFE` constructors and maps, future contract/extension preservation, malformed observations, and GTIN API behavior. Parser provenance now reports 0.3.0. The GPreços consumer was then on the hosted `nfe_decoder` 0.2.0 artifact (`^0.2.0`, lockfile 0.2.0); no local path dependency was configured, and app migration remained I12.1. Dart 3.12.1 validation: format check passed (42 files), full test suite passed (93 tests), analyzer exited 0 with one pre-existing informational lint and an analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Independent review found no actionable diff findings. Committed as immutable decoder commit `758785d3fba531a8851f516c963e4ab29837d1c0`; a subsequent package dry-run exited 0 with zero warnings and included `doc/identifier_contract.md`. User subsequently confirmed 0.3.0 was published and Pub's latest version is 0.3.0. GPreços adapter metadata preservation remains downstream I12.1 and is not claimed as proven here.
 
-Release preparation (2026-09-29): the package-page check at that time showed hosted 0.2.0. Added `.pubignore`, retaining build, local-config and generated-doc exclusions while omitting repository-only tests/fixtures, plans, and agent/tool configuration from the archive. A value-redacted pattern scan found URL/access-key/CNPJ/CPF/consumer markers in legacy HTML mock fixtures, so they are not included in the release archive; fixture contents were not printed or modified. `mise exec -- dart doc` documented 28 public libraries with zero warnings/errors. The release-candidate dry run included `pubspec.yaml`, the runtime library, README/changelog/license and contract documentation (19 KB compressed) and exited 0 with zero warnings. User subsequently confirmed 0.3.0 publication; NID.7 remains unpublished and unapproved.
+Release preparation (2026-09-29): the package-page check at that time showed hosted 0.2.0. Added `.pubignore`, retaining build, local-config and generated-doc exclusions while omitting repository-only tests/fixtures, plans, and agent/tool configuration from the archive. A value-redacted pattern scan found URL/access-key/CNPJ/CPF/consumer markers in legacy HTML mock fixtures, so they are not included in the release archive; fixture contents were not printed or modified. `mise exec -- dart doc` documented 28 public libraries with zero warnings/errors. The release-candidate dry run included `pubspec.yaml`, the runtime library, README/changelog/license and contract documentation (19 KB compressed) and exited 0 with zero warnings. User subsequently confirmed 0.3.0 publication; NID.7 is a separately authorized decoder implementation, complete but unpublished and not part of 0.3.0.
+
+NID.7 evidence (2026-09-29, Dart SDK 3.12.1): focused public compatibility tests passed (9), full decoder suite passed (98), formatting passed for all 42 Dart files, analyzer exited 0 with one pre-existing informational lint and analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Package dry-run from a clean temporary copy including the six modified files exited 0 with zero warnings; the in-checkout dry-run exited 65 because the working tree was modified. Independent review found no actionable issues. No package was published; at this validation point, `CHANGELOG.md` had a 0.4.0 draft with its date pending. App consumption and persistence remain downstream GPreços I12.2.
+
+0.4.0 release preparation (2026-09-29): updated `pubspec.yaml`, README dependency guidance, parser provenance and the changelog date to 0.4.0 / 2026-09-29. The exact package dry-run from a clean temporary copy passed with zero warnings. The release remains unpublished; no credential, tag, commit, or Pub upload was performed.

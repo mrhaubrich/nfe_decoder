@@ -1,3 +1,8 @@
+## 0.4.0 (2026-09-29)
+
+- Feature: Preserve malformed identifier payloads as immutable, quarantined
+  JSON data, with a 64 KiB per-item limit and no changes to the typed API.
+
 ## 0.3.0 (2026-09-29)
 
 - Feature: Additive identifier observations and pure GTIN assessment while

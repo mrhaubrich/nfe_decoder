@@ -14,7 +14,7 @@ To use the NFE Decoder in your project, add it to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  nfe_decoder: ^0.3.0
+  nfe_decoder: ^0.4.0
 ```
 
 Then, run:

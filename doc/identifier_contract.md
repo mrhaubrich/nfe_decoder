@@ -64,6 +64,7 @@ Extend NfeItem with optional metadata (default absent; identifiers default empty
 |---|---|
 | identifierContractVersion | Optional integer; 1 when metadata is emitted |
 | identifiers | Immutable list of IdentifierObservation |
+| rawIdentifiers | Immutable list of quarantined malformed JSON values; emitted only when non-empty |
 | sourceItemNumber | Nullable actual source number; never synthesized from HTML position |
 | sourceOrdinal | Nullable captured order with explicitly recorded basis |
 | sourceMetadata | Layout, parser/package version and capture method; no fiscal URL |
@@ -97,6 +98,15 @@ app to quarantine from resolution while importing safe fiscal fields. Do not cra
 solely on a future identifier enum, and do not silently convert it to trusted GTIN.
 Malformed extension data must not manufacture an identifier. Document exact optional
 map shape in golden tests before package release.
+
+Malformed entries found in the input `identifiers` list remain outside the typed
+`identifiers` API and round-trip in the separate `rawIdentifiers` list. Values in that
+channel are JSON-only, deeply immutable, and limited to 64 KiB of aggregate UTF-8 JSON
+per item with a maximum nesting depth of 128; non-JSON values, non-string map keys,
+cyclic values, excessive nesting, and payloads exceeding the limit throw `FormatException`.
+The channel is omitted when empty. Typed and raw list ordering is preserved
+independently; their original interleaving is not represented. Values in
+`rawIdentifiers` remain quarantined even if they resemble a valid observation.
 
 RS must capture raw code before its legacy codigo cleanup, retain old codigo output,
 emit only html.RCod retailer evidence and record source order independently of nItem.
@@ -141,10 +151,11 @@ requests. Injected HTTP tests use synthetic inputs, never live fiscal links.
 
 ## Compatibility and release
 
-Recommend 0.3.0 for the new contract/stricter request behavior. Old constructors/maps
-remain supported. NID.5 requires golden map, validator, scraper and injected HTTP tests,
-format/analyzer/full-suite/package dry run. A dry run does not publish. GPreços I12.1
-consumes the identified artifact and explicitly preserves metadata through its adapter.
+Version 0.3.0 introduced the observation contract and stricter request behavior; 0.4.0
+adds the quarantined malformed-payload channel. Old constructors/maps remain supported.
+NID.5 requires golden map, validator, scraper and injected HTTP tests, format/analyzer/
+full-suite/package dry run. A dry run does not publish. GPreços I12.1 consumes the
+identified artifact and explicitly preserves metadata through its adapter.
 The handoff may be a published version or tested immutable package artifact/commit;
 publication is not a hidden prerequisite for app work. Use reproducible dependency
 resolution against the approved version. No committed absolute local dependency overrides. Record actual Dart SDK version because

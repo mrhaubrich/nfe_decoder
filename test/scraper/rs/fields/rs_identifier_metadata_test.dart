@@ -23,7 +23,7 @@ void main() {
       expect(absent.sourceItemNumber, isNull);
       expect(absent.identifierContractVersion, 1);
       expect(absent.sourceMetadata['parser'], 'RSItemScraper');
-      expect(absent.sourceMetadata['parserVersion'], 'nfe_decoder-0.3.0');
+      expect(absent.sourceMetadata['parserVersion'], 'nfe_decoder-0.4.0');
       expect(absent.sourceMetadata['sourceOrdinalBasis'], 'rs-html-tr-order');
 
       final restored = absent.toMap();
