@@ -1,7 +1,7 @@
 # Adaptive identifier-capture roadmap
 
 Approved 2026-09-18. Active workstream: identifier observations and compatibility.
-NID.1–NID.4 are ✅; NID.5 is in validation for the required compatibility/release gate.
+NID.1–NID.5 are ✅; the required compatibility/release gate passed on immutable commit `758785d3fba531a8851f516c963e4ab29837d1c0`.
 Planning approval does not publish packages or modify devices.
 
 ## Tree and ownership
@@ -25,7 +25,7 @@ for current capture. No duplicated agent tree or generic skills are needed.
 | NID.2 | Identifier value/validation | MUST | 18.00 | ✅ | NID.1 |
 | NID.3 | RS observations | MUST | 27.00 | ✅ | NID.2 |
 | NID.4 | Safe request boundary | MUST | 17.00 | ✅ | NID.1 |
-| NID.5 | Compatibility/release gate | MUST | 25.50 | 🧪 | NID.2, NID.3, NID.4 |
+| NID.5 | Compatibility/release gate | MUST | 25.50 | ✅ | NID.2, NID.3, NID.4 |
 | NID.6 | Additional XML adapter | WON'T-YET | Unscored | 🔒 | Explicit acquisition approval |
 
 NID.6 Lock reason: no specific XML acquisition or access contract is approved.
@@ -84,4 +84,4 @@ need actual evidence. No provider or additional XML integration is required for 
 
 Evidence ledger (2026-09-29): NID.4 implementation and final security review are complete; final review reports no remaining P1/P2 findings. Validation used Dart 3.12.1: formatting passed for 41 files, focused tests passed (15), full suite passed (89), `git diff --check` passed, and `dart analyze` exited 0 with one existing informational lint. The analyzer also printed an optional analyzer-plugin setup conflict between `analysis_server_plugin` and `saropa_lints`; this did not fail the analyzer command. `dart pub publish --dry-run` exited 65 on the pre-existing plural `docs/` layout warning; this compatibility/release check belongs to NID.5 and does not block NID.4. Synthetic tests do not prove real network DNS/socket behavior, which was not exercised; no runtime-network claim is made. Package publication and live-source validation have not occurred.
 
-NID.5 evidence (2026-09-29, Dart 3.12.1): bumped package metadata and release notes to 0.3.0, corrected the README to RS-only support, moved the contract to Pub's singular `doc/` layout, and added public-entry-point tests for legacy `Item`/`NfeItem`/`NFE` constructors and maps, future contract/extension preservation, malformed observations, and GTIN API behavior. Parser provenance now reports 0.3.0. The current GPreços consumer is the hosted `nfe_decoder` 0.2.0 artifact (`^0.2.0`, lockfile 0.2.0); no local path dependency is configured, and app migration remains I12.1. Dart 3.12.1 validation: format check passed (42 files), full test suite passed (93 tests), analyzer exited 0 with one pre-existing informational lint and an analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Independent review found no actionable diff findings. Package dry-run exits 65 while the rename/deletion is still dirty in Git; Pub identifies the old tracked `docs/identifier_contract.md` path as ignored and reports modified tracked files. No 0.3.0 immutable commit/artifact has been created or published, so that exact handoff and clean package validation remain outstanding; NID.5 stays validation-required. The GPreços application adapter's metadata preservation is downstream I12.1 and is not claimed as proven here.
+NID.5 evidence (2026-09-29, Dart 3.12.1): bumped package metadata and release notes to 0.3.0, corrected the README to RS-only support, moved the contract to Pub's singular `doc/` layout, and added public-entry-point tests for legacy `Item`/`NfeItem`/`NFE` constructors and maps, future contract/extension preservation, malformed observations, and GTIN API behavior. Parser provenance now reports 0.3.0. The current GPreços consumer is the hosted `nfe_decoder` 0.2.0 artifact (`^0.2.0`, lockfile 0.2.0); no local path dependency is configured, and app migration remains I12.1. Dart 3.12.1 validation: format check passed (42 files), full test suite passed (93 tests), analyzer exited 0 with one pre-existing informational lint and an analyzer-plugin dependency-resolution diagnostic, and `git diff --check` passed. Independent review found no actionable diff findings. Committed as immutable decoder commit `758785d3fba531a8851f516c963e4ab29837d1c0`; subsequent `mise exec -- dart pub publish --dry-run` exited 0 with zero warnings and included `doc/identifier_contract.md`. Publication was not performed. GPreços adapter metadata preservation remains downstream I12.1 and is not claimed as proven here.
